@@ -1,6 +1,6 @@
 // ── src/components/Hero.jsx ──
 import React from 'react';
-import './Hero.css'; // Make sure this file exists next to Hero.jsx
+import './Hero.css'; // Ensure this file is next to Hero.jsx
 
 export default function Hero() {
   return (
@@ -8,7 +8,12 @@ export default function Hero() {
       {/* ── Background Image + Single Overlay ── */}
       <div className="hero-bg-container">
         <img
-          src="/img/flo-beach-home.png"
+          /* 
+            Use import.meta.env.BASE_URL so that in production (base="/southeast-ins/")
+            this becomes "/southeast-ins/img/flo-beach-home.png". 
+            In dev, BASE_URL is "/", so it loads "/img/flo-beach-home.png".
+          */
+          src={`${import.meta.env.BASE_URL}img/flo-beach-home.png`}
           alt="Beach House"
           className="hero-bg-image"
           onError={(e) => {
@@ -44,4 +49,3 @@ export default function Hero() {
     </section>
   );
 }
-
