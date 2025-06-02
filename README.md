@@ -1,2 +1,3 @@
-# southeast-ins
-A landing page for an insurance agency.
+# Southeast Insurance Agency
+
+This is a landing page for an independent insurance agency, built with Vite + React.
