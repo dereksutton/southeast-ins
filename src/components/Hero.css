@@ -120,6 +120,62 @@
   transform: translateY(-2px);
 }
 
+/* ── Only Buttons get this shimmer ── */
+.btn-primary,
+.btn-secondary {
+  position: relative;
+  overflow: hidden;
+  z-index: 0; /* ensure the pseudo‐element sits behind the text */
+}
+
+/* Create a more blended diagonal highlight just on the button */
+.btn-primary::before,
+.btn-secondary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;           /* start well left */
+  width: 150%;           /* wide enough to fully cover diagonally */
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0)   0%,
+    rgba(255, 255, 255, 0.10) 20%,
+    rgba(255, 255, 255, 0.20) 50%,
+    rgba(255, 255, 255, 0.10) 80%,
+    rgba(255, 255, 255, 0)   100%
+  );
+  transform: skewX(-25deg);
+  animation: shimmer 2.5s infinite;
+  pointer-events: none;  /* let clicks pass through */
+  z-index: -1;           /* sit behind the button content */
+}
+
+/* Move the shimmer from left → right */
+@keyframes shimmer {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+/* On hover, speed up and slightly fade out the shimmer */
+.btn-primary:hover::before,
+.btn-secondary:hover::before {
+  animation-duration: 1.5s;
+  opacity: 0.8;
+}
+
+/* Ensure the button’s text stays above the shimmer */
+.btn-primary > *,
+.btn-secondary > * {
+  position: relative;
+  z-index: 1;
+}
+
+
 /* ── RESPONSIVE ADJUSTMENTS ── */
 
 /* On screens ≤ 640px (mobile), center‐align everything */

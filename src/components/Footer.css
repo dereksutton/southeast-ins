@@ -1,0 +1,75 @@
+/* ── src/components/Footer.css ── */
+
+.footer-section {
+  background: #333333;
+  padding: 4rem 2rem;
+  color: #ffffff;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Brand/Logo */
+.footer-brand .footer-logo {
+  height: 100px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.footer-brand .footer-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Navigation */
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.footer-link {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #00A99B;
+  transform: translateY(-2px);
+}
+
+/* Footer Copyright */
+.footer-copy {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #00A99B;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .footer-nav {
+    gap: 1rem;
+  }
+
+  .footer-link {
+    font-size: 0.875rem;
+  }
+
+  .footer-copy {
+    text-align: center;
+    font-size: 0.75rem;
+  }
+}

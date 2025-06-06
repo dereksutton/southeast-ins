@@ -5,7 +5,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import CoverageGrid from './components/CoverageGrid';
+import WhyUs from './components/WhyUs';
 import Reviews from './components/Reviews';
+import CTA from './components/CTA';
+import Footer from './components/Footer';
 
 // 1) Create a theme that uses Poppins everywhere:
 const theme = createTheme({
@@ -40,7 +43,10 @@ export default function App() {
       <Navbar />
       <Hero />
       <CoverageGrid />
+      <WhyUs />
       <Reviews />
+      <CTA />
+      <Footer />
       {/* Later, you’ll add other sections (CoverageGrid, WhyUs, etc.) but they will automatically inherit Poppins */}
     </ThemeProvider>
   );

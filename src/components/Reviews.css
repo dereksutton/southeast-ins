@@ -19,7 +19,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: 
+  background-image:
     radial-gradient(circle at 20% 80%, rgba(0, 169, 155, 0.05) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(102, 217, 206, 0.05) 0%, transparent 50%),
     radial-gradient(circle at 40% 40%, rgba(0, 169, 155, 0.03) 0%, transparent 50%);
@@ -67,15 +67,24 @@
   line-height: 1.6;
 }
 
-/* Reviews Container */
+/* Reviews Container now uses two columns: left for featured+stats, right for grid */
 .reviews-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
+
+  /* change from “grid-template-columns: 1fr 1fr” to assign left column */
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: start;
+}
+
+/* ── NEW: Wraps featured review + stats in a single left column ── */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem; /* space between featured-review and stats */
 }
 
 /* Featured Review */
@@ -176,7 +185,7 @@
   border: 1px solid rgba(0, 169, 155, 0.3);
 }
 
-/* Reviews Grid */
+/* Reviews Grid (right column) */
 .reviews-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -271,23 +280,27 @@
   font-weight: 600;
 }
 
-/* Stats Section */
+/* ── Adjusted Stats Section ── */
 .reviews-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
+
+  /* Instead of centering with margin: 6rem auto 0; */
+  /* we now “float” it under the left column by removing auto margins */
   max-width: 1000px;
-  margin: 6rem auto 0;
-  padding: 3rem;
+  margin: 2rem 0 0;   /* push it 2rem below the featured card */
+  padding: 3rem 2rem; /* keep the same padding on left/right */
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
   border-radius: 24px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  /* Make sure it aligns with the left column’s container */
 }
 
+/* Inside each stat-item, typography stays the same: */
 .stat-item {
   text-align: center;
 }
-
 .stat-item h3 {
   font-family: "Poppins", sans-serif;
   font-size: 2.5rem;
@@ -299,7 +312,6 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
 .stat-item p {
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
@@ -320,6 +332,19 @@
 
   .reviews-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* On tablets, we want the stats to go back under everything and centered */
+  .left-column {
+    /* maintain stacking but remove side-by-side layout */
+    flex-direction: column;
+  }
+
+  .reviews-stats {
+    max-width: 1000px;
+    margin: 3rem auto 0; /* center it under the entire section */
+    padding: 3rem;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns of stats on tablet */
   }
 }
 
@@ -353,9 +378,11 @@
     height: 60px;
   }
 
+  /* On smaller phones, stack stats in two columns and keep them centered */
   .reviews-stats {
     grid-template-columns: repeat(2, 1fr);
     padding: 2rem;
+    margin: 3rem auto 0;
   }
 
   .stat-item h3 {

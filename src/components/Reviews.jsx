@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import "./Reviews.css";
 
-// Sample review data
+// Sample review data (unchanged)
 const reviewsData = [
   {
     id: 1,
@@ -65,7 +65,7 @@ export default function Reviews() {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
-  
+
   const isInView = useInView(sectionRef, {
     once: false,
     threshold: 0.1,
@@ -76,10 +76,9 @@ export default function Reviews() {
     target: containerRef,
     offset: ["start end", "end start"]
   });
-
   const parallaxY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
-  // Animation variants
+  // Animation variants (unchanged)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -90,7 +89,6 @@ export default function Reviews() {
       },
     },
   };
-
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -102,7 +100,6 @@ export default function Reviews() {
       },
     },
   };
-
   const renderStars = (rating) => {
     return [...Array(5)].map((_, index) => (
       <svg
@@ -146,123 +143,103 @@ export default function Reviews() {
 
       {/* Reviews Container */}
       <div className="reviews-container" ref={containerRef}>
-        {/* Featured Review - Left Side */}
-        <motion.div 
-          className="featured-review"
-          variants={itemVariants}
-        >
-          <motion.div 
-            className="featured-card"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="quote-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
-                <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
-              </svg>
-            </div>
-            
-            <motion.div 
-              className="review-content"
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
+        {/* ── LEFT COLUMN: Featured Review + Stats ── */}
+        <div className="left-column">
+          <motion.div className="featured-review" variants={itemVariants}>
+            <motion.div
+              className="featured-card"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
             >
-              <p className="review-text">{reviewsData[activeIndex].text}</p>
-              
-              <div className="reviewer-info">
-                <motion.img 
-                  key={reviewsData[activeIndex].id}
-                  src={reviewsData[activeIndex].image}
-                  alt={reviewsData[activeIndex].name}
-                  className="reviewer-image"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <div className="reviewer-details">
-                  <h4>{reviewsData[activeIndex].name}</h4>
-                  <p>{reviewsData[activeIndex].location}</p>
-                  <div className="rating">
-                    {renderStars(reviewsData[activeIndex].rating)}
+              <div className="quote-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+                  <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
+                </svg>
+              </div>
+
+              <motion.div className="review-content" animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+                <p className="review-text">{reviewsData[activeIndex].text}</p>
+
+                <div className="reviewer-info">
+                  <motion.img
+                    key={reviewsData[activeIndex].id}
+                    src={reviewsData[activeIndex].image}
+                    alt={reviewsData[activeIndex].name}
+                    className="reviewer-image"
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <div className="reviewer-details">
+                    <h4>{reviewsData[activeIndex].name}</h4>
+                    <p>{reviewsData[activeIndex].location}</p>
+                    <div className="rating">{renderStars(reviewsData[activeIndex].rating)}</div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="coverage-badge">
-                {reviewsData[activeIndex].coverageType}
-              </div>
+
+                <div className="coverage-badge">{reviewsData[activeIndex].coverageType}</div>
+              </motion.div>
             </motion.div>
           </motion.div>
-        </motion.div>
 
-        {/* Review Cards Grid - Right Side */}
-        <motion.div 
-          className="reviews-grid"
-          variants={containerVariants}
-        >
+          {/* ── Moved: Bottom Stats (now under featured-review) ── */}
+          <motion.div
+            className="reviews-stats"
+            variants={containerVariants}
+            style={{ y: parallaxY }}
+          >
+            <motion.div className="stat-item" variants={itemVariants}>
+              <h3>4.9</h3>
+              <p>Average Rating</p>
+            </motion.div>
+            <motion.div className="stat-item" variants={itemVariants}>
+              <h3>2,500+</h3>
+              <p>Happy Customers</p>
+            </motion.div>
+            <motion.div className="stat-item" variants={itemVariants}>
+              <h3>98%</h3>
+              <p>Claim Satisfaction</p>
+            </motion.div>
+            <motion.div className="stat-item" variants={itemVariants}>
+              <h3>24/7</h3>
+              <p>Support Available</p>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* ── RIGHT COLUMN: Review Cards Grid ── */}
+        <motion.div className="reviews-grid" variants={containerVariants}>
           {reviewsData.map((review, index) => (
             <motion.div
               key={review.id}
-              className={`review-card ${index === activeIndex ? 'active' : ''}`}
+              className={`review-card ${index === activeIndex ? "active" : ""}`}
               variants={itemVariants}
               onClick={() => setActiveIndex(index)}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)"
               }}
               whileTap={{ scale: 0.98 }}
             >
               <div className="card-header">
-                <img 
-                  src={review.image}
-                  alt={review.name}
-                  className="card-image"
-                />
+                <img src={review.image} alt={review.name} className="card-image" />
                 <div className="card-info">
                   <h5>{review.name}</h5>
                   <p>{review.location}</p>
                 </div>
               </div>
-              
-              <p className="card-text">
-                {review.text.substring(0, 80)}...
-              </p>
-              
+
+              <p className="card-text">{review.text.substring(0, 80)}...</p>
+
               <div className="card-footer">
-                <div className="card-rating">
-                  {renderStars(review.rating)}
-                </div>
+                <div className="card-rating">{renderStars(review.rating)}</div>
                 <span className="card-coverage">{review.coverageType}</span>
               </div>
             </motion.div>
           ))}
         </motion.div>
       </div>
-
-      {/* Bottom Stats */}
-      <motion.div 
-        className="reviews-stats"
-        variants={containerVariants}
-        style={{ y: parallaxY }}
-      >
-        <motion.div className="stat-item" variants={itemVariants}>
-          <h3>4.9</h3>
-          <p>Average Rating</p>
-        </motion.div>
-        <motion.div className="stat-item" variants={itemVariants}>
-          <h3>2,500+</h3>
-          <p>Happy Customers</p>
-        </motion.div>
-        <motion.div className="stat-item" variants={itemVariants}>
-          <h3>98%</h3>
-          <p>Claim Satisfaction</p>
-        </motion.div>
-        <motion.div className="stat-item" variants={itemVariants}>
-          <h3>24/7</h3>
-          <p>Support Available</p>
-        </motion.div>
-      </motion.div>
     </motion.section>
   );
 }

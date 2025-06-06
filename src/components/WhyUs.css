@@ -1,0 +1,169 @@
+/* ── src/components/WhyUs.css ── */
+
+.whyus-section {
+  position: relative;
+  padding: 6rem 0 8rem; /* extra bottom for spacing after pillars */
+  background: #333333;
+  overflow: hidden;
+}
+
+/* Background Pattern (same style as Reviews) */
+.whyus-background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.whyus-background .bg-pattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(0, 169, 155, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(102, 217, 206, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 169, 155, 0.03) 0%, transparent 50%);
+}
+
+/* Header */
+.whyus-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  padding: 0 2rem;
+}
+.whyus-header .section-label {
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #00A99B;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.whyus-header .whyus-title {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(2.5rem, 5vw, 3.25rem);
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+.whyus-header .title-gradient {
+  background: linear-gradient(135deg, #00A99B, #66d9ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.whyus-header .whyus-subtitle {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: #9a9fa6;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  line-height: 1.6;
+}
+
+/* Story Text */
+.whyus-story {
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  padding: 0 2rem;
+}
+.whyus-story p {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+.whyus-story p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Pillars Grid */
+.whyus-pillars {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+/* Each Pillar Card */
+.pillar-card {
+  background: linear-gradient(135deg, #696464, #66d9ce);
+  border-radius: 16px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.pillar-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+}
+.pillar-icon {
+  margin-bottom: 1rem;
+}
+.pillar-icon svg {
+  width: 48px;
+  height: 48px;
+}
+.pillar-card h4 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+.pillar-card p {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  .whyus-pillars {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .whyus-section {
+    padding: 4rem 0 6rem;
+  }
+  .whyus-header {
+    margin-bottom: 2.5rem;
+  }
+  .whyus-header .whyus-title {
+    font-size: 2rem;
+  }
+  .whyus-header .whyus-subtitle {
+    font-size: 1rem;
+  }
+  .whyus-story {
+    margin-bottom: 3rem;
+  }
+  .whyus-story p {
+    font-size: 0.95rem;
+  }
+  .whyus-pillars {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .pillar-card {
+    padding: 2rem 1rem;
+  }
+  .pillar-card h4 {
+    font-size: 1.125rem;
+  }
+  .pillar-card p {
+    font-size: 0.875rem;
+  }
+}
