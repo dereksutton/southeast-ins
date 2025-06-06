@@ -1,5 +1,5 @@
 // ── src/components/Navbar.jsx ──
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   AppBar,
@@ -10,22 +10,43 @@ import {
   List,
   ListItem,
   ListItemText,
-  useScrollTrigger,
   Slide,
   Box,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import logo from '/img/southeast-logo.png'; // ← Make sure this matches your public/img path
+import logo from '/img/southeast-logo.png';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// HideOnScroll: hides the AppBar when scrolling down past 50px
-// ─────────────────────────────────────────────────────────────────────────────
+// HideOnScroll: hides the AppBar when scrolling down, shows only at top
 function HideOnScroll(props) {
   const { children } = props;
-  const trigger = useScrollTrigger({ threshold: 50 });
+  const [show, setShow] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY < 50) {
+        // At the top of the page, always show
+        setShow(true);
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down, hide
+        setShow(false);
+      }
+      // When scrolling up (currentScrollY < lastScrollY), do nothing unless at top
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollY]);
 
   return (
-    <Slide appear={false} direction="down" in={!trigger}>
+    <Slide appear={false} direction="down" in={show}>
       {children}
     </Slide>
   );
@@ -34,16 +55,14 @@ HideOnScroll.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Navbar Component
-// ─────────────────────────────────────────────────────────────────────────────
+
+{/* Drawer Contents */}
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
   };
 
-  // ── Define your nav links here. “Get a Quote” gets special button styling.
   const navLinks = [
     { label: 'Coverage', href: '#coverage' },
     { label: 'Why Us', href: '#why-us' },
@@ -52,16 +71,14 @@ export default function Navbar() {
     { label: 'Get a Quote', href: '#quote', isButton: true },
   ];
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // Drawer contents (mobile)
-  // ─────────────────────────────────────────────────────────────────────────────
+  {/* Drawer Contents */}
   const drawer = (
     <Box
       onClick={handleDrawerToggle}
       sx={{
         width: 240,
         height: '100%',
-        backgroundColor: '#333333', // dark background for contrast
+        backgroundColor: '#333333',
         color: '#ffffff',
         pt: 2,
         display: 'flex',
@@ -69,7 +86,7 @@ export default function Navbar() {
         alignItems: 'center',
       }}
     >
-      {/* ── Drawer Logo (centered, narrower to prevent overflow) ── */}
+      {/* Drawer Logo */}
       <Box sx={{ mb: 3 }}>
         <Box
           component="img"
@@ -83,13 +100,13 @@ export default function Navbar() {
         />
       </Box>
 
-      {/* ── List of Links ── */}
+      {/* ── Navbar Links ── */}
       <List sx={{ width: '100%' }}>
         {navLinks.map((item) => (
           <ListItem key={item.label} disablePadding sx={{ justifyContent: 'center' }}>
             <ListItemText>
               {item.isButton ? (
-                // Get a Quote button, centered
+                // Get a Quote button
                 <Box sx={{ display: 'flex', justifyContent: 'center', my: 1 }}>
                   <Button
                     href={item.href}
@@ -101,8 +118,6 @@ export default function Navbar() {
                       textTransform: 'none',
                       fontFamily: 'Poppins, sans-serif',
                       fontWeight: 500,
-
-                      // ── ADDED: Grow (scale) effect on hover/tap
                       transition: 'transform 0.2s ease-in-out',
                       '&:hover': {
                         backgroundColor: '#009181',
@@ -117,7 +132,6 @@ export default function Navbar() {
                   </Button>
                 </Box>
               ) : (
-                // Regular text links, also centered
                 <Box sx={{ display: 'flex', justifyContent: 'center', my: 1 }}>
                   <Button
                     href={item.href}
@@ -126,8 +140,6 @@ export default function Navbar() {
                       textTransform: 'none',
                       fontFamily: 'Poppins, sans-serif',
                       fontWeight: 500,
-
-                      // ── ADDED: Grow (scale) effect on hover/tap
                       transition: 'transform 0.2s ease-in-out',
                       '&:hover': {
                         transform: 'scale(1.05)',
@@ -156,11 +168,11 @@ export default function Navbar() {
         sx={{
           backgroundColor: 'transparent',
           boxShadow: 'none',
-          color: '#ffffff', // desktop link color will be white
+          color: '#ffffff',
         }}
       >
         <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, md: 6 }, py: { xs: 2, md: 4 } }}>
-          {/* ── Logo on Desktop (no extra text) ── */}
+          {/* Desktop Logo */}
           <Box component="a" href="#" sx={{ display: 'flex', alignItems: 'center' }}>
             <Box
               component="img"
@@ -188,8 +200,6 @@ export default function Navbar() {
                     textTransform: 'none',
                     fontFamily: 'Poppins, sans-serif',
                     fontWeight: 500,
-
-                    // ── ADDED: Grow (scale) effect on hover
                     transition: 'transform 0.2s ease-in-out',
                     '&:hover': {
                       backgroundColor: '#009181',
@@ -198,8 +208,6 @@ export default function Navbar() {
                     '&:active': {
                       transform: 'scale(1.02)',
                     },
-
-                    // ── Existing font-size adjustment you requested:
                     fontSize: '1.15rem',
                     textShadow: '0 1px 2px rgba(0,0,0,0.7)',
                   }}
@@ -215,8 +223,6 @@ export default function Navbar() {
                     textTransform: 'none',
                     fontFamily: 'Poppins, sans-serif',
                     fontWeight: 500,
-
-                    // ── ADDED: Grow (scale) effect on hover
                     transition: 'transform 0.2s ease-in-out',
                     '&:hover': {
                       transform: 'scale(1.05)',
@@ -224,8 +230,6 @@ export default function Navbar() {
                     '&:active': {
                       transform: 'scale(1.02)',
                     },
-
-                    // ── Existing font-size adjustment you requested:
                     fontSize: '1.15rem',
                     textShadow: '0 1px 2px rgba(0,0,0,0.7)',
                   }}
@@ -252,7 +256,7 @@ export default function Navbar() {
           anchor="right"
           open={mobileOpen}
           onClose={handleDrawerToggle}
-          ModalProps={{ keepMounted: true }} // Improves performance on mobile
+          ModalProps={{ keepMounted: true }}
           PaperProps={{ sx: { width: 240 } }}
         >
           {drawer}
