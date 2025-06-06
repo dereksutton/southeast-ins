@@ -1,127 +1,149 @@
-/* CoverageGrid.css - Clean Bento Layout */
+/* CoverageGrid.css - Split Screen Design */
 
 .coverage-section {
   position: relative;
-  background: #ffffff;
-  padding: 4rem 0;
+  background: #fafbfc;
   overflow: hidden;
-  min-height: 100vh;
 }
 
-/* Fixed Image on Right */
-.fixed-image-container {
-  position: fixed;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 35%;
-  height: auto;
-  z-index: 1;
+/* Background Elements */
+.section-background {
+  position: absolute;
+  inset: 0;
   pointer-events: none;
+  overflow: hidden;
 }
 
-.fixed-image {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
+.bg-gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.2;
 }
 
-/* Left Side Content */
-.coverage-content {
-  width: 65%;
-  padding: 0 3rem;
-  position: relative;
-  z-index: 2;
+.orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #00A99B 0%, transparent 70%);
+  top: -300px;
+  left: -300px;
 }
 
-/* Header */
+.orb-2 {
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, #66d9ce 0%, transparent 70%);
+  bottom: -400px;
+  right: -400px;
+}
+
+/* Header Section - Full Width */
 .coverage-header {
-  margin-bottom: 3rem;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #00A99B;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
 }
 
 .coverage-title {
   font-family: "Poppins", sans-serif;
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
+  color: #333333;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.title-gradient {
+  background: linear-gradient(135deg, #00A99B, #66d9ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .coverage-subtitle {
   font-family: "Poppins", sans-serif;
   font-size: 1.25rem;
-  color: #666;
+  color: #64748b;
+  line-height: 1.6;
   max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Split Screen Container */
+.split-screen-container {
+  display: grid;
+  /* make right column a bit narrower */
+  grid-template-columns: 1fr 0.95fr;
+  min-height: 80vh;
+  position: relative;
+}
+
+/* Left Side - Bento Section */
+.bento-section {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background: #fafbfc;
 }
 
 /* Bento Grid */
 .bento-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 180px;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  margin-bottom: 2rem;
+  grid-auto-rows: minmax(140px, auto);
 }
 
 /* Bento Items */
 .bento-item {
-  background: #f8f9fa;
-  border-radius: 16px;
-  padding: 1.5rem;
   position: relative;
+  background: #333333;
+  border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
 }
 
 .bento-item:hover {
-  background: #ffffff;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   border-color: #00A99B;
 }
 
-/* Grid Sizes */
-.bento-large {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.bento-medium {
+/* Make first item span 2 columns */
+.bento-item:first-child {
   grid-column: span 2;
 }
 
-.bento-small {
-  grid-column: span 1;
-}
-
-.bento-cta {
-  grid-column: span 4;
-  background: linear-gradient(135deg, #00A99B, #66d9ce);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 1rem;
-}
-
-/* Video Background */
-.video-bg {
+/* Background Images */
+.bento-bg-image {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15;
+  transition: opacity 0.3s ease;
   z-index: 0;
-  opacity: 0.3;
 }
 
-.video-bg video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.bento-item:hover .bento-bg-image {
+  opacity: 0.35;
 }
 
 /* Bento Content */
@@ -129,25 +151,23 @@
   position: relative;
   z-index: 1;
   height: 100%;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
 }
 
+/* Icon Styling */
 .bento-icon {
   width: 40px;
   height: 40px;
-  background: #00A99B;
+  background: linear-gradient(135deg, #00A99B, #66d9ce);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   transition: all 0.3s ease;
-}
-
-.bento-item:hover .bento-icon {
-  transform: scale(1.1);
-  background: linear-gradient(135deg, #00A99B, #66d9ce);
+  transform-style: preserve-3d;
 }
 
 .bento-icon svg {
@@ -155,144 +175,251 @@
   font-size: 1.25rem;
 }
 
+/* Text Content */
 .bento-title {
   font-family: "Poppins", sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   font-weight: 600;
-  color: #1a1a1a;
   margin-bottom: 0.5rem;
-}
-
-.bento-large .bento-title {
-  font-size: 1.5rem;
+  background: linear-gradient(135deg, #00A99B, #66d9ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
 }
 
 .bento-description {
   font-family: "Poppins", sans-serif;
-  font-size: 0.9rem;
-  color: #666;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
   flex-grow: 1;
 }
 
-.bento-large .bento-description {
-  font-size: 1rem;
-}
-
+/* Link */
 .bento-link {
-  font-family: "Poppins", sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #00A99B;
-  text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  margin-top: 0.5rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #00A99B;
+  background: linear-gradient(135deg, #00A99B, #66d9ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: auto;
 }
 
-/* CTA Styles */
-.bento-cta h3 {
+.bento-link:hover {
+  color: #008f82;
+}
+
+.bento-link svg {
+  transition: transform 0.3s ease;
+}
+
+.bento-link:hover svg {
+  transform: translateX(3px);
+}
+
+/* Bottom Section */
+.bottom-section {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+/* Savings Badge */
+.savings-badge {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.badge-number {
   font-family: "Poppins", sans-serif;
-  font-size: 1.75rem;
-  font-weight: 600;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #00A99B;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.badge-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.3;
+}
+
+/* CTA Card */
+.cta-card {
+  background: #333333;
+  color: white;
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.75rem;
+}
+
+.cta-card h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
   margin: 0;
 }
 
-.bento-cta p {
+.cta-card p {
   font-family: "Poppins", sans-serif;
-  font-size: 1.1rem;
-  opacity: 0.9;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
   margin: 0;
 }
 
 .cta-button {
-  background: white;
-  color: #00A99B;
-  padding: 0.75rem 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #00A99B;
+  color: white;
+  padding: 0.75rem 1.75rem;
   border-radius: 50px;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-decoration: none;
   transition: all 0.3s ease;
+  margin-top: 0.5rem;
 }
 
 .cta-button:hover {
+  background: #00d4aa;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive */
+/* Right Side - Image Section */
+.image-section {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+
+  /* 1) Match section background to .coverage-section */
+  background-color: #fafbfc;
+
+  /* 2) Use CSS background with full-height scaling (no cropping top/bottom) */
+  background-image: url('./img/coverage-side.png');
+  background-size: auto 100%;        /* full height visible, width auto */
+  background-position: center center;/* center both axes */
+  background-repeat: no-repeat;
+}
+
+/* Gentle gradient overlay for a more luxurious fade-effect */
+.image-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.15) 15%,
+    rgba(0, 0, 0, 0.00) 70%
+  );
+  z-index: 1;
+}
+
+/* Overlay Text (frosted pill) */
+.image-overlay {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 169, 155, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem 2.5rem;
+  border-radius: 100px;
+  text-align: center;
+  width: 90%;
+  max-width: 500px;
+  z-index: 2;
+}
+
+.image-overlay h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #333333;
+  margin: 0;
+}
+
+/* (No more .full-image rule, because we no longer use an <img> tag) */
+
+/* Responsive Design */
 @media (max-width: 1200px) {
-  .fixed-image-container {
-    position: relative;
-    width: 100%;
-    margin-bottom: 3rem;
-    transform: none;
-    top: auto;
+  .split-screen-container {
+    grid-template-columns: 1fr;
   }
 
-  .coverage-content {
-    width: 100%;
-    padding: 0 2rem;
+  .image-section {
+    height: 400px;
+    order: -1; /* Move image to top on tablet/mobile */
   }
 
-  .bento-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .bento-large {
-    grid-column: span 2;
-  }
-
-  .bento-medium {
-    grid-column: span 2;
-  }
-
-  .bento-small {
-    grid-column: span 1;
-  }
-
-  .bento-cta {
-    grid-column: span 2;
+  .bento-section {
+    padding: 2rem;
   }
 }
 
 @media (max-width: 768px) {
-  .coverage-content {
-    padding: 0 1rem;
+  .coverage-header {
+    padding: 4rem 1.5rem 3rem;
   }
 
-  .coverage-header {
-    text-align: center;
+  .coverage-title {
+    font-size: 2rem;
+  }
+
+  .coverage-subtitle {
+    font-size: 1.1rem;
   }
 
   .bento-grid {
     grid-template-columns: 1fr;
-    grid-auto-rows: minmax(160px, auto);
   }
 
-  .bento-large,
-  .bento-medium,
-  .bento-small,
-  .bento-cta {
+  .bento-item:first-child {
     grid-column: span 1;
-    grid-row: span 1;
   }
 
-  .bento-item {
-    padding: 1.25rem;
+  .bottom-section {
+    grid-template-columns: 1fr;
   }
 
-  .fixed-image-container {
-    margin-bottom: 2rem;
+  .bento-section {
+    padding: 1.5rem;
   }
-}
 
-/* Smooth Scrolling for Section */
-@media (prefers-reduced-motion: no-preference) {
-  .coverage-section {
-    scroll-behavior: smooth;
+  .image-overlay {
+    bottom: 2rem;
+    padding: 1rem 2rem;
+  }
+
+  .image-overlay h3 {
+    font-size: 1.1rem;
   }
 }

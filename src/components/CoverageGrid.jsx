@@ -1,4 +1,4 @@
-// src/components/CoverageGrid.jsx - Clean Bento Grid with Fixed Image
+// src/components/CoverageGrid.jsx - Split Screen Bento Grid
 import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import coverageItems from "../data/coverageItems";
@@ -7,7 +7,7 @@ import "./CoverageGrid.css";
 export default function CoverageGrid() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { 
-    once: true, 
+    once: false, 
     threshold: 0.1,
     margin: "-100px 0px"
   });
@@ -21,7 +21,7 @@ export default function CoverageGrid() {
       opacity: 1,
       transition: {
         staggerChildren: 0.08,
-        delayChildren: 0.1,
+        delayChildren: 0.2,
       },
     },
   };
@@ -29,27 +29,27 @@ export default function CoverageGrid() {
   const cardVariants = {
     hidden: { 
       opacity: 0, 
-      y: 20,
+      y: 30,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.4,
+        duration: 0.5,
         ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
   };
 
-  // Assign grid sizes for a balanced layout
+  // Grid configuration
   const gridConfig = [
-    { size: "large", hasVideo: true },   // Home Insurance
-    { size: "medium" },                  // Auto Insurance
-    { size: "small" },                   // Flood Insurance
-    { size: "small" },                   // Umbrella Policy
-    { size: "medium" },                  // Business Insurance
-    { size: "small" },                   // Boat & Marine
-    { size: "small" },                   // Life & Health
+    { bgImage: "home-bg.png" },
+    { bgImage: "auto-bg.png" },
+    { bgImage: "flood-bg.png" },
+    { bgImage: "umbrella-bg.png" },
+    { bgImage: "business-bg.png" },
+    { bgImage: "boat-bg.png" },
+    { bgImage: "health-bg.png" },
   ];
 
   return (
@@ -60,98 +60,117 @@ export default function CoverageGrid() {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
     >
-      {/* Fixed Image on Right */}
-      <div className="fixed-image-container">
-        <img 
-          src="./img/coverage-side.png" 
-          alt="Family Protection"
-          className="fixed-image"
-        />
+      {/* Background Elements */}
+      <div className="section-background">
+        <div className="bg-gradient-orb orb-1" />
+        <div className="bg-gradient-orb orb-2" />
       </div>
 
-      {/* Left Side Content */}
-      <div className="coverage-content">
-        {/* Header Section */}
-        <motion.div 
-          className="coverage-header"
-          variants={cardVariants}
-        >
-          <h2 className="coverage-title">
-            Our Coverage
-          </h2>
-          <p className="coverage-subtitle">
-            Comprehensive insurance solutions tailored to protect what matters most to you.
-          </p>
-        </motion.div>
+      {/* Header Section - Full Width */}
+      <motion.div 
+        className="coverage-header"
+        variants={cardVariants}
+      >
+        <span className="section-label">PROTECTION PLANS</span>
+        <h2 className="coverage-title">
+          Coverage That <span className="title-gradient">Adapts</span> to Your Life
+        </h2>
+        <p className="coverage-subtitle">
+          From coastal homes to city commutes, we've got you covered with 
+          comprehensive insurance solutions designed for Florida living.
+        </p>
+      </motion.div>
 
-        {/* Bento Grid */}
-        <motion.div 
-          className="bento-grid"
-          variants={containerVariants}
-        >
-          {coverageItems.map((item, index) => {
-            const config = gridConfig[index];
-            
-            return (
-              <motion.div
-                key={index}
-                className={`bento-item bento-${config.size}`}
-                variants={cardVariants}
-                onMouseEnter={() => setHoveredCard(index)}
-                onMouseLeave={() => setHoveredCard(null)}
-                whileHover={{ 
-                  y: -5,
-                  transition: { duration: 0.2 }
-                }}
-              >
-                {/* Video Background for Home Insurance */}
-                {config.hasVideo && (
-                  <div className="video-bg">
-                    <video
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                    >
-                      <source src="./img/coverage-vid.mp4" type="video/mp4" />
-                    </video>
-                  </div>
-                )}
-
-                <div className="bento-content">
-                  <div className="bento-icon">
-                    {item.icon}
-                  </div>
-                  <h3 className="bento-title">{item.title}</h3>
-                  <p className="bento-description">{item.description}</p>
-                  
-                  <motion.a
-                    href={item.learnMoreLink}
-                    className="bento-link"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: hoveredCard === index ? 1 : 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    Learn More →
-                  </motion.a>
-                </div>
-              </motion.div>
-            );
-          })}
-
-          {/* CTA Card */}
+      {/* Split Screen Layout */}
+      <div className="split-screen-container">
+        {/* Left Side - Bento Grid */}
+        <div className="bento-section">
           <motion.div 
-            className="bento-item bento-cta"
-            variants={cardVariants}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            className="bento-grid"
+            variants={containerVariants}
           >
-            <h3>Ready to Get Started?</h3>
-            <p>Get your personalized quote in just minutes.</p>
-            <a href="#quote" className="cta-button">
-              Get My Quote
-            </a>
+            {coverageItems.map((item, index) => {
+              const config = gridConfig[index];
+              
+              return (
+                <motion.div
+                  key={index}
+                  className="bento-item"
+                  data-bg={config.bgImage}
+                  variants={cardVariants}
+                  onMouseEnter={() => setHoveredCard(index)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  whileHover={{ 
+                    scale: 1.03,
+                    transition: { duration: 0.2 }
+                  }}
+                >
+                  {/* Background Image */}
+                  <div 
+                    className="bento-bg-image"
+                    style={{
+                      backgroundImage: `url('./img/${config.bgImage}')`
+                    }}
+                  />
+
+                  <div className="bento-content">
+                    <motion.div 
+                      className="bento-icon"
+                      animate={{ 
+                        rotateY: hoveredCard === index ? 180 : 0,
+                      }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      {item.icon}
+                    </motion.div>
+                    
+                    <h3 className="bento-title">{item.title}</h3>
+                    <p className="bento-description">{item.description}</p>
+                    
+                    <a href={item.learnMoreLink} className="bento-link">
+                      Learn More
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </a>
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
+
+          {/* Bottom Section - CTA and Badge */}
+          <motion.div 
+            className="bottom-section"
+            variants={cardVariants}
+          >
+            {/* 25% Badge */}
+            <div className="savings-badge">
+              <span className="badge-number">25%</span>
+              <span className="badge-text">Average Savings on Bundled Coverage</span>
+            </div>
+
+            {/* CTA Card */}
+            <div className="cta-card">
+              <h3>Ready to Get Started?</h3>
+              <p>Get your personalized quote in minutes.</p>
+              <a href="#quote" className="cta-button">
+                Get My Quote
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Right Side - Full Image (now via CSS background) */}
+        <motion.div 
+          className="image-section"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
         </motion.div>
       </div>
     </motion.section>

@@ -1,0 +1,382 @@
+/* Reviews.css - Modern Reviews Component Styles */
+
+.reviews-section {
+  position: relative;
+  padding: 6rem 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+/* Background Pattern */
+.reviews-background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-pattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(0, 169, 155, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(102, 217, 206, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 169, 155, 0.03) 0%, transparent 50%);
+}
+
+/* Header */
+.reviews-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  padding: 0 2rem;
+}
+
+.section-label {
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #00A99B;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.reviews-title {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.title-gradient {
+  background: linear-gradient(135deg, #00A99B, #66d9ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.reviews-subtitle {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Reviews Container */
+.reviews-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* Featured Review */
+.featured-review {
+  position: sticky;
+  top: 100px;
+}
+
+.featured-card {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  border-radius: 24px;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.featured-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 169, 155, 0.1) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.quote-icon {
+  color: #00A99B;
+  margin-bottom: 2rem;
+  opacity: 0.5;
+}
+
+.review-content {
+  position: relative;
+  z-index: 1;
+}
+
+.review-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.reviewer-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reviewer-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.reviewer-details h4 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.25rem;
+}
+
+.reviewer-details p {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.5rem;
+}
+
+.rating {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.star {
+  transition: transform 0.2s ease;
+}
+
+.star:hover {
+  transform: scale(1.1);
+}
+
+.coverage-badge {
+  display: inline-block;
+  background: rgba(0, 169, 155, 0.2);
+  color: #00A99B;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid rgba(0, 169, 155, 0.3);
+}
+
+/* Reviews Grid */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.review-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+
+.review-card.active {
+  border-color: #00A99B;
+  box-shadow: 0 10px 30px rgba(0, 169, 155, 0.1);
+}
+
+.review-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 169, 155, 0.05) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.review-card:hover::after {
+  opacity: 1;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.card-info h5 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin-bottom: 0.125rem;
+}
+
+.card-info p {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.card-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-rating {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.card-rating .star {
+  width: 16px;
+  height: 16px;
+}
+
+.card-coverage {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.75rem;
+  color: #00A99B;
+  font-weight: 600;
+}
+
+/* Stats Section */
+.reviews-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 6rem auto 0;
+  padding: 3rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-item h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #00A99B;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #00A99B, #66d9ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-item p {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #64748b;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .reviews-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .featured-review {
+    position: relative;
+    top: 0;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviews-section {
+    padding: 4rem 0;
+  }
+
+  .reviews-header {
+    margin-bottom: 3rem;
+  }
+
+  .reviews-title {
+    font-size: 2rem;
+  }
+
+  .reviews-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .featured-card {
+    padding: 2rem;
+  }
+
+  .review-text {
+    font-size: 1.25rem;
+  }
+
+  .reviewer-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .reviews-stats {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2rem;
+  }
+
+  .stat-item h3 {
+    font-size: 2rem;
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.review-card.active {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Smooth Scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  .reviews-section {
+    scroll-behavior: smooth;
+  }
+}
