@@ -201,7 +201,7 @@ export default function Navbar() {
                 src={logo}
                 alt="Southeast Insurance"
                 sx={{
-                  height: 100,
+                  height: 80,
                   width: 'auto',
                   objectFit: 'contain',
                 }}

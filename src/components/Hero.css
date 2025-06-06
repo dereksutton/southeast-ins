@@ -187,7 +187,8 @@
     padding: 0 16px;
   }
   .hero-heading {
-    font-size: 2.5rem; /* ~32px on mobile */
+    font-size: 2.25rem; /* ~32px on mobile */
+    padding-top: 3rem;
   }
   .hero-subtext {
     font-size: 1.25rem; /* ~16px on mobile */
