@@ -49,6 +49,7 @@
   font-weight: 700;
   color: white;
   margin-bottom: 1rem;
+  font-size: 4rem;
   line-height: 1.1;
 }
 .whyus-header .title-gradient {
@@ -151,7 +152,7 @@
     margin-bottom: 3rem;
   }
   .whyus-story p {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
   }
   .whyus-pillars {
     grid-template-columns: 1fr;
@@ -161,9 +162,9 @@
     padding: 2rem 1rem;
   }
   .pillar-card h4 {
-    font-size: 1.125rem;
+    font-size: 1.5rem;
   }
   .pillar-card p {
-    font-size: 0.875rem;
+    font-size: 1.05rem;
   }
 }
