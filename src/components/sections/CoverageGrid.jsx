@@ -1,7 +1,9 @@
-// src/components/CoverageGrid.jsx - Split Screen Bento Grid
+// src/components/sections/CoverageGrid.jsx - Split Screen Bento Grid
 import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import coverageItems from "../data/coverageItems";
+import { ArrowRight } from "lucide-react";
+import coverageItems from "../../data/coverageItems";
+import Button from "../ui/Button";
 import "./CoverageGrid.css";
 
 export default function CoverageGrid() {
@@ -129,9 +131,7 @@ export default function CoverageGrid() {
                     
                     <a href={item.learnMoreLink} className="bento-link">
                       Learn More
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                      </svg>
+                      <ArrowRight className="w-4 h-4" />
                     </a>
                   </div>
                 </motion.div>
@@ -154,12 +154,10 @@ export default function CoverageGrid() {
             <div className="cta-card">
               <h3>Ready to Get Started?</h3>
               <p>Get your personalized quote in minutes.</p>
-              <a href="#quote" className="cta-button">
+              <Button href="#quote" variant="primary" className="cta-button">
                 Get My Quote
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </a>
+                <ArrowRight className="w-5 h-5" />
+              </Button>
             </div>
           </motion.div>
         </div>

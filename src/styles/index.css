@@ -1,26 +1,50 @@
 /* src/styles/index.css */
+@import 'tailwindcss';
 
-/* ----- Global “polish” CSS, no Tailwind directives needed ----- */
-html {
-  scroll-behavior: smooth;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
-}
-
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  line-height: 1.5;
-}
-
-html, body {
+/* Global polish CSS */
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  margin: 0;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* Custom utility classes */
+.glass-card {
+  @apply backdrop-blur-glass bg-white/10 border border-white/20 rounded-2xl shadow-glass;
+}
+
+.shimmer-effect {
+  @apply relative overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:animate-shimmer;
+}
+
+.shadow-text {
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
 }

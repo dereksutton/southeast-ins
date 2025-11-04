@@ -1,0 +1,143 @@
+/* Navbar.css - Modern Navigation */
+
+.navbar-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  width: 100%;
+  background: transparent;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .navbar-container {
+    padding: 1rem 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .navbar-container {
+    padding: 1rem 4rem;
+  }
+}
+
+/* Logo */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navbar-logo-img {
+  height: 3rem;
+  width: auto;
+  display: block;
+  background-image: url('/img/southeast-logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+@media (min-width: 768px) {
+  .navbar-logo-img {
+    height: 3.5rem;
+    width: 180px;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-logo-img {
+    width: 150px;
+  }
+}
+
+/* Desktop Menu */
+.navbar-menu {
+  display: none;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .navbar-menu {
+    display: flex;
+  }
+}
+
+/* Mobile Menu Button */
+.navbar-mobile-btn {
+  display: block;
+  padding: 0.5rem;
+  color: white;
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-mobile-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (min-width: 768px) {
+  .navbar-mobile-btn {
+    display: none;
+  }
+}
+
+/* Mobile Drawer */
+.navbar-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+}
+
+.navbar-drawer {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 16rem;
+  background-color: #333333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5rem;
+  gap: 1rem;
+  z-index: 50;
+}
+
+.navbar-drawer-links {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 1rem;
+  gap: 1rem;
+}
+
+/* Hide on scroll functionality */
+.navbar-hide-scroll {
+  transition: transform 0.3s ease;
+}
+
+.navbar-hide-scroll.hidden {
+  transform: translateY(-100%);
+}
+
+.navbar-hide-scroll.visible {
+  transform: translateY(0);
+}
