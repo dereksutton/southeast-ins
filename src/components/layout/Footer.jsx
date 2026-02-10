@@ -1,5 +1,6 @@
 // ── src/components/Footer.jsx ──
 import React from "react";
+import { Facebook } from "lucide-react";
 import "./Footer.css";
 
 export default function Footer() {
@@ -34,6 +35,17 @@ export default function Footer() {
             File a Claim
           </a>
         </nav>
+
+        {/* Facebook Link */}
+        <a
+          href="https://www.facebook.com/SoutheastInsuranceAgency"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-facebook"
+        >
+          <Facebook size={18} />
+          <span>Follow Us on Facebook</span>
+        </a>
 
         {/* Copyright */}
         <div className="footer-copy">

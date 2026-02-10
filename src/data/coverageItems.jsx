@@ -1,5 +1,5 @@
 // src/data/coverageItems.jsx
-import { Home, Car, Waves, Umbrella, Building, Ship, Heart } from 'lucide-react';
+import { Home, Car, Waves, Umbrella, Building, Ship, Settings } from 'lucide-react';
 
 const coverageItems = [
   {
@@ -39,10 +39,10 @@ const coverageItems = [
     learnMoreLink: "#boat-insurance"
   },
   {
-    title: "Life & Health",
-    description: "Secure your family's future with our life and health insurance options.",
-    icon: <Heart className="w-5 h-5" />,
-    learnMoreLink: "#life-health-insurance"
+    title: "Private Client Services",
+    description: "Tailored insurance solutions designed to meet your unique needs and circumstances.",
+    icon: <Settings className="w-5 h-5" />,
+    learnMoreLink: "#custom-coverage"
   }
 ];
 

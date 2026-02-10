@@ -1,6 +1,8 @@
 // src/components/Reviews.jsx
 import React, { useState, useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, HelpCircle } from "lucide-react";
+import Button from "../ui/Button";
 import "./Reviews.css";
 
 // Sample review data (unchanged)
@@ -240,6 +242,24 @@ export default function Reviews() {
           ))}
         </motion.div>
       </div>
+
+      {/* CTA Section */}
+      <motion.div className="reviews-cta" variants={itemVariants}>
+        <div className="reviews-cta-content">
+          <h3>Have Questions About Coverage?</h3>
+          <p>Our FAQ section has answers to the most common insurance questions. Still need help? Get a personalized quote from our experts.</p>
+        </div>
+        <div className="reviews-cta-buttons">
+          <Button href="#faq" variant="secondary" size="md">
+            <HelpCircle className="w-5 h-5" />
+            View FAQ
+          </Button>
+          <Button href="#quote" variant="primary" size="md" shimmer>
+            Get Your Quote
+            <ArrowRight className="w-5 h-5" />
+          </Button>
+        </div>
+      </motion.div>
     </motion.section>
   );
 }

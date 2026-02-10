@@ -1,6 +1,8 @@
 // ── src/components/WhyUs.jsx ──
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { ArrowRight, Phone } from "lucide-react";
+import Button from "../ui/Button";
 import "./WhyUs.css";
 
 export default function WhyUs() {
@@ -154,9 +156,34 @@ export default function WhyUs() {
           </div>
           <h4>Community Trust</h4>
           <p>
-            Over 2,500 families and counting rely on Southeast Insurance each year. Our 4.9★ average rating isn’t just a number—it’s proof that we deliver when it matters.
+            Over 2,500 families and counting rely on Southeast Insurance each year. Our 4.9★ average rating isn't just a number—it's proof that we deliver when it matters.
           </p>
         </motion.div>
+      </motion.div>
+
+      {/* CTA Section */}
+      <motion.div className="whyus-cta" variants={itemVariants}>
+        <div className="whyus-cta-content">
+          <h3>Ready to Experience the Difference?</h3>
+          <p>Join thousands of Florida families who trust us with their protection. Get a personalized quote in minutes.</p>
+          <div className="whyus-cta-buttons">
+            <Button href="#quote" variant="primary" size="md" shimmer>
+              Get Your Free Quote
+              <ArrowRight className="w-5 h-5" />
+            </Button>
+            <Button href="tel:+13862589998" variant="secondary" size="md">
+              <Phone className="w-5 h-5" />
+              Call (386) 258-9998
+            </Button>
+          </div>
+        </div>
+        <div className="whyus-cta-badge">
+          <span className="badge-icon">✓</span>
+          <div className="badge-text">
+            <strong>No Obligation</strong>
+            <span>Free quotes, zero pressure</span>
+          </div>
+        </div>
       </motion.div>
     </motion.section>
   );

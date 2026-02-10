@@ -129,10 +129,101 @@
   line-height: 1.6;
 }
 
+/* WhyUs CTA Section */
+.whyus-cta {
+  max-width: 1000px;
+  margin: 4rem auto 0;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  background: linear-gradient(145deg, rgba(0, 169, 155, 0.1) 0%, rgba(102, 217, 206, 0.05) 100%);
+  border: 1px solid rgba(0, 169, 155, 0.2);
+  border-radius: 20px;
+  padding: 2.5rem 3rem;
+}
+
+.whyus-cta-content h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.whyus-cta-content p {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+}
+
+.whyus-cta-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.whyus-cta-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  flex-shrink: 0;
+}
+
+.whyus-cta-badge .badge-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #00A99B, #66d9ce);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: white;
+}
+
+.whyus-cta-badge .badge-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.whyus-cta-badge .badge-text strong {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+}
+
+.whyus-cta-badge .badge-text span {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
 /* Responsive Breakpoints */
 @media (max-width: 1200px) {
   .whyus-pillars {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .whyus-cta {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .whyus-cta-content p {
+    max-width: 100%;
+  }
+
+  .whyus-cta-buttons {
+    justify-content: center;
   }
 }
 @media (max-width: 768px) {
@@ -166,5 +257,19 @@
   }
   .pillar-card p {
     font-size: 1.05rem;
+  }
+
+  .whyus-cta {
+    padding: 2rem 1.5rem;
+    margin: 3rem 1rem 0;
+  }
+
+  .whyus-cta-content h3 {
+    font-size: 1.5rem;
+  }
+
+  .whyus-cta-buttons {
+    flex-direction: column;
+    width: 100%;
   }
 }

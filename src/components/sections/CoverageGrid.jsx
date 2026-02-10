@@ -51,7 +51,7 @@ export default function CoverageGrid() {
     { bgImage: "umbrella-bg.png" },
     { bgImage: "business-bg.png" },
     { bgImage: "boat-bg.png" },
-    { bgImage: "health-bg.png" },
+    { bgImage: "custom-bg.png" },
   ];
 
   return (
@@ -152,8 +152,14 @@ export default function CoverageGrid() {
 
             {/* CTA Card */}
             <div className="cta-card">
+              <div className="cta-card-badge">Free • No Obligation</div>
               <h3>Ready to Get Started?</h3>
-              <p>Get your personalized quote in minutes.</p>
+              <p>Get your personalized quote in under 2 minutes.</p>
+              <div className="cta-card-features">
+                <span>✓ Compare rates</span>
+                <span>✓ Expert guidance</span>
+                <span>✓ Save up to 25%</span>
+              </div>
               <Button href="#quote" variant="primary" className="cta-button">
                 Get My Quote
                 <ArrowRight className="w-5 h-5" />
