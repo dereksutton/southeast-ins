@@ -99,16 +99,6 @@
   left: -100px;
 }
 
-.hero-line-accent {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 120px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 169, 155, 0.5), transparent);
-  transform-origin: left center;
-}
-
 /* ============================================
    MAIN CONTENT
    ============================================ */

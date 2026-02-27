@@ -69,18 +69,6 @@ export default function Hero({ mobileMenuOpen }) {
     },
   };
 
-  const lineVariants = {
-    hidden: { scaleX: 0 },
-    visible: {
-      scaleX: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.5,
-      },
-    },
-  };
-
   const badgeVariants = {
     hidden: {
       opacity: 0,
@@ -125,12 +113,6 @@ export default function Hero({ mobileMenuOpen }) {
       <div className="hero-decorative">
         <div className="hero-glow hero-glow-1" />
         <div className="hero-glow hero-glow-2" />
-        <motion.div
-          className="hero-line-accent"
-          variants={lineVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        />
       </div>
 
       {/* Main Content */}
