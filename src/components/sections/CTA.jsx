@@ -1,8 +1,19 @@
 // ── src/components/CTA.jsx ──
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Shield, Clock, CheckCircle, Phone, Star, Lock, Users, Award } from "lucide-react";
+import { submitQuoteRequest } from "../../services/quoteService";
 import "./CTA.css";
+
+const initialFormState = {
+  fullName: "",
+  phone: "",
+  email: "",
+  address: "",
+  insuranceType: "",
+  coverageDetails: "",
+  contactPreference: false,
+};
 
 export default function CTA() {
   const sectionRef = useRef(null);
@@ -11,6 +22,70 @@ export default function CTA() {
     threshold: 0.1,
     margin: "-100px 0px",
   });
+
+  const [formData, setFormData] = useState(initialFormState);
+  const [submitting, setSubmitting] = useState(false);
+  const [result, setResult] = useState(null); // { type: 'success' | 'error', message: string }
+  const [honeypot, setHoneypot] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const validateForm = () => {
+    if (!formData.fullName.trim() || formData.fullName.trim().length < 2) {
+      return "Please enter your full name.";
+    }
+    if (!formData.email.trim() || !/^\S+@\S+\.\S+$/.test(formData.email)) {
+      return "Please enter a valid email address.";
+    }
+    if (!formData.phone.trim() || !/^[\d\s\-\(\)\+]+$/.test(formData.phone)) {
+      return "Please enter a valid phone number.";
+    }
+    if (!formData.address.trim()) {
+      return "Please enter your property address.";
+    }
+    if (!formData.insuranceType) {
+      return "Please select an insurance type.";
+    }
+    return null;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setResult(null);
+
+    // Honeypot check
+    if (honeypot) return;
+
+    const validationError = validateForm();
+    if (validationError) {
+      setResult({ type: "error", message: validationError });
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      await submitQuoteRequest(formData);
+      setResult({
+        type: "success",
+        message: "Thank you! Your quote request has been submitted. We'll be in touch within 24 hours.",
+      });
+      setFormData(initialFormState);
+    } catch (error) {
+      setResult({
+        type: "error",
+        message: `Something went wrong. Please try again or call us at (386) 258-9998.`,
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   // Animation variants
   const containerVariants = {
@@ -151,7 +226,26 @@ export default function CTA() {
             <p>Takes less than 2 minutes to complete</p>
           </div>
 
-          <form className="cta-form">
+          {/* Result Banner */}
+          {result && (
+            <div className={`form-result-banner ${result.type}`}>
+              {result.type === "success" ? <CheckCircle size={20} /> : <Shield size={20} />}
+              <span>{result.message}</span>
+            </div>
+          )}
+
+          <form className="cta-form" onSubmit={handleSubmit}>
+            {/* Honeypot field - hidden from users */}
+            <input
+              type="text"
+              name="_hp"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              style={{ position: "absolute", left: "-9999px", tabIndex: -1 }}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
             <div className="form-row">
               <motion.div className="form-group" variants={itemVariants}>
                 <label htmlFor="fullName">
@@ -163,6 +257,8 @@ export default function CTA() {
                   name="fullName"
                   placeholder="John Doe"
                   required
+                  value={formData.fullName}
+                  onChange={handleChange}
                 />
               </motion.div>
 
@@ -176,6 +272,8 @@ export default function CTA() {
                   name="phone"
                   placeholder="(123) 456-7890"
                   required
+                  value={formData.phone}
+                  onChange={handleChange}
                 />
               </motion.div>
             </div>
@@ -190,6 +288,8 @@ export default function CTA() {
                 name="email"
                 placeholder="you@example.com"
                 required
+                value={formData.email}
+                onChange={handleChange}
               />
             </motion.div>
 
@@ -203,6 +303,8 @@ export default function CTA() {
                 name="address"
                 placeholder="1234 Main St, Jacksonville, FL 32256"
                 required
+                value={formData.address}
+                onChange={handleChange}
               />
             </motion.div>
 
@@ -210,7 +312,13 @@ export default function CTA() {
               <label htmlFor="insuranceType">
                 Insurance Type<span className="required">*</span>
               </label>
-              <select id="insuranceType" name="insuranceType" required>
+              <select
+                id="insuranceType"
+                name="insuranceType"
+                required
+                value={formData.insuranceType}
+                onChange={handleChange}
+              >
                 <option value="">Select coverage type...</option>
                 <option value="home">Home Insurance</option>
                 <option value="auto">Auto Insurance</option>
@@ -232,19 +340,35 @@ export default function CTA() {
                 name="coverageDetails"
                 rows="3"
                 placeholder="Property details, current coverage, any specific concerns..."
+                value={formData.coverageDetails}
+                onChange={handleChange}
               ></textarea>
             </motion.div>
 
             <motion.div className="form-group checkbox-group" variants={itemVariants}>
               <label className="checkbox-label">
-                <input type="checkbox" name="contactPreference" value="call" />
+                <input
+                  type="checkbox"
+                  name="contactPreference"
+                  checked={formData.contactPreference}
+                  onChange={handleChange}
+                />
                 <span className="checkbox-text">I prefer a phone call to discuss my options</span>
               </label>
             </motion.div>
 
-            <motion.button type="submit" className="submit-btn" variants={itemVariants}>
-              <span className="btn-text">Get My Free Quote</span>
-              <span className="btn-subtext">No obligation • Response within 24 hours</span>
+            <motion.button
+              type="submit"
+              className="submit-btn"
+              variants={itemVariants}
+              disabled={submitting}
+            >
+              <span className="btn-text">
+                {submitting ? "Sending..." : "Get My Free Quote"}
+              </span>
+              {!submitting && (
+                <span className="btn-subtext">No obligation • Response within 24 hours</span>
+              )}
             </motion.button>
 
             {/* Security Note */}
