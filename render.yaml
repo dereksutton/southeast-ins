@@ -12,6 +12,20 @@ services:
         value: 18
       - key: NODE_ENV
         value: production
+      - key: FRONTEND_URL
+        value: https://southeastins.com
+      - key: MONGODB_URI
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: NOTIFICATION_EMAIL_FROM
+        value: Southeast Insurance <quotes@southeastins.com>
+      - key: NOTIFICATION_EMAIL_TO
+        value: quotes@southeastins.com
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 10
     autoDeploy: false
 
   # Frontend Static Site

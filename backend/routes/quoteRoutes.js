@@ -8,7 +8,7 @@ const router = express.Router();
 // POST /api/quotes - Submit a new quote request
 router.post('/', validateQuoteRequest, handleValidationErrors, async (req, res) => {
   try {
-    const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     const userAgent = req.headers['user-agent'];
 
     const quoteData = { ...req.body, ipAddress, userAgent };
