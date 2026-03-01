@@ -56,12 +56,10 @@ export default function Hero({ mobileMenuOpen }) {
     hidden: {
       opacity: 0,
       y: 60,
-      filter: "blur(10px)"
     },
     visible: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
       transition: {
         duration: 0.8,
         ease: [0.22, 1, 0.36, 1],
@@ -122,7 +120,6 @@ export default function Hero({ mobileMenuOpen }) {
         animate={{
           opacity: mobileMenuOpen ? 0 : isVisible ? 1 : 0,
           scale: mobileMenuOpen ? 0.95 : 1,
-          filter: mobileMenuOpen ? 'blur(10px)' : 'blur(0px)',
         }}
         transition={{
           duration: 0.4,
