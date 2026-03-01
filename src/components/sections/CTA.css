@@ -106,6 +106,12 @@
   align-items: start;
   position: relative;
   z-index: 1;
+  box-sizing: border-box;
+}
+
+/* Prevent grid children from overflowing */
+.cta-content-wrapper > * {
+  min-width: 0;
 }
 
 /* Value Props - Left Side */
@@ -551,6 +557,7 @@
   .cta-content-wrapper {
     grid-template-columns: 1fr;
     gap: 3rem;
+    width: 100%;
   }
 
   .cta-value-props {
@@ -616,6 +623,7 @@
 @media (max-width: 480px) {
   .cta-trust-badges {
     flex-direction: column;
+    align-items: center;
     gap: 0.75rem;
   }
 
