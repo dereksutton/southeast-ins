@@ -38,7 +38,6 @@ export default function Hero({ mobileMenuOpen }) {
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-  const scrollOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   // Staggered animation variants
   const containerVariants = {
