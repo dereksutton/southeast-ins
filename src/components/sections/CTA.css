@@ -288,6 +288,56 @@
   flex-shrink: 0;
 }
 
+/* Success state */
+.quote-success {
+  text-align: center;
+}
+
+.quote-success-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.quote-success-icon svg {
+  width: 34px;
+  height: 34px;
+}
+
+.quote-success .form-header {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.quote-success .sms-optin {
+  text-align: left;
+}
+
+.quote-success-reset {
+  margin-top: 1.5rem;
+  background: none;
+  border: none;
+  color: #64748b;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.quote-success-reset:hover {
+  color: #0a0a0a;
+}
+
 /* Disabled submit button */
 .submit-btn:disabled {
   opacity: 0.7;

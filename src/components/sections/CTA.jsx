@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Shield, Clock, CheckCircle, Phone, Star, Lock, Users, Award } from "lucide-react";
 import { submitQuoteRequest } from "../../services/quoteService";
+import SmsOptIn from "./SmsOptIn";
 import "./CTA.css";
 
 const initialFormState = {
@@ -25,7 +26,9 @@ export default function CTA() {
 
   const [formData, setFormData] = useState(initialFormState);
   const [submitting, setSubmitting] = useState(false);
-  const [result, setResult] = useState(null); // { type: 'success' | 'error', message: string }
+  const [result, setResult] = useState(null); // { type: 'error', message: string } — errors only
+  const [submitted, setSubmitted] = useState(false);
+  const [submittedContact, setSubmittedContact] = useState(null); // { fullName, email, phone } for the opt-in step
   const [honeypot, setHoneypot] = useState("");
 
   const handleChange = (e) => {
@@ -43,7 +46,7 @@ export default function CTA() {
     if (!formData.email.trim() || !/^\S+@\S+\.\S+$/.test(formData.email)) {
       return "Please enter a valid email address.";
     }
-    if (!formData.phone.trim() || !/^[\d\s\-\(\)\+]+$/.test(formData.phone)) {
+    if (!formData.phone.trim() || !/^[\d\s\-()+]+$/.test(formData.phone)) {
       return "Please enter a valid phone number.";
     }
     if (!formData.address.trim()) {
@@ -72,12 +75,18 @@ export default function CTA() {
 
     try {
       await submitQuoteRequest(formData);
-      setResult({
-        type: "success",
-        message: "Thank you! Your quote request has been submitted. We'll be in touch within 24 hours.",
+      // The quote is saved and emailed at this point — the SMS opt-in below is
+      // optional, so dropping off there loses nothing. Capture the contact
+      // details before clearing the form so the opt-in step can echo them back.
+      setSubmittedContact({
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
       });
+      setSubmitted(true);
+      setResult(null);
       setFormData(initialFormState);
-    } catch (error) {
+    } catch {
       setResult({
         type: "error",
         message: `Something went wrong. Please try again or call us at (386) 258-9998.`,
@@ -85,6 +94,12 @@ export default function CTA() {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleReset = () => {
+    setSubmitted(false);
+    setSubmittedContact(null);
+    setResult(null);
   };
 
   // Animation variants
@@ -220,16 +235,35 @@ export default function CTA() {
 
         {/* Right Side - Form */}
         <motion.div className="cta-form-container" variants={containerVariants}>
+          {submitted ? (
+            /* Success state — confirmation + SMS opt-in step */
+            <div className="quote-success">
+              <div className="quote-success-icon">
+                <CheckCircle />
+              </div>
+              <div className="form-header">
+                <h3>Quote Request Received</h3>
+                <p>We'll be in touch within 24 hours.</p>
+              </div>
+
+              <SmsOptIn contact={submittedContact} />
+
+              <button type="button" className="quote-success-reset" onClick={handleReset}>
+                Submit another request
+              </button>
+            </div>
+          ) : (
+            <>
           {/* Form Header */}
           <div className="form-header">
             <h3>Request Your Free Quote</h3>
             <p>Takes less than 2 minutes to complete</p>
           </div>
 
-          {/* Result Banner */}
+          {/* Result Banner — errors only */}
           {result && (
             <div className={`form-result-banner ${result.type}`}>
-              {result.type === "success" ? <CheckCircle size={20} /> : <Shield size={20} />}
+              <Shield size={20} />
               <span>{result.message}</span>
             </div>
           )}
@@ -377,6 +411,8 @@ export default function CTA() {
               <span>Your information is secure and will never be shared or sold.</span>
             </motion.div>
           </form>
+            </>
+          )}
         </motion.div>
       </div>
 

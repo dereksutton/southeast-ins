@@ -1,0 +1,86 @@
+/* ── SMS opt-in (Bridge embed) ── */
+.sms-optin {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.sms-optin-header {
+  display: flex;
+  gap: 0.875rem;
+  align-items: flex-start;
+}
+
+.sms-optin-icon {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.sms-optin-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.sms-optin-heading h4 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin: 0 0 0.25rem;
+}
+
+.sms-optin-heading p {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #64748b;
+  margin: 0;
+}
+
+.sms-optin-hint {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  color: #475569;
+  margin: 0.875rem 0 0;
+}
+
+.sms-optin-hint p {
+  margin: 0 0 0.5rem;
+}
+
+.sms-optin-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.875rem;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.sms-optin-details dt {
+  color: #64748b;
+}
+
+.sms-optin-details dd {
+  margin: 0;
+  color: #0a0a0a;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.sms-optin-frame {
+  width: 100%;
+  min-height: 640px;
+  border: none;
+  margin-top: 1rem;
+  display: block;
+}

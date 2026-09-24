@@ -75,6 +75,25 @@
   color: #00A99B;
 }
 
+/* Footer Legal */
+.footer-legal {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-legal-link {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-legal-link:hover {
+  color: #00A99B;
+}
+
 /* Footer Copyright */
 .footer-copy {
   font-family: "Poppins", sans-serif;
@@ -94,6 +113,14 @@
 
   .footer-link {
     font-size: 0.875rem;
+  }
+
+  .footer-legal {
+    gap: 1rem;
+  }
+
+  .footer-legal-link {
+    font-size: 0.8rem;
   }
 
   .footer-copy {
