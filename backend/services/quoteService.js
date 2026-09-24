@@ -28,51 +28,6 @@ class QuoteService {
     }
   }
 
-  static async findById(id) {
-    try {
-      const quote = await QuoteRequest.findById(id);
-      if (!quote) return null;
-      return quote.toJSON();
-    } catch (error) {
-      console.error('Error finding quote by ID:', error);
-      if (error.name === 'CastError') return null;
-      throw error;
-    }
-  }
-
-  static async findRecent(days = 7) {
-    try {
-      const date = new Date();
-      date.setDate(date.getDate() - days);
-      const quotes = await QuoteRequest.find({ created_at: { $gte: date } })
-        .sort({ created_at: -1 });
-      return quotes.map(quote => quote.toJSON());
-    } catch (error) {
-      console.error('Error finding recent quotes:', error);
-      throw error;
-    }
-  }
-
-  static async updateStatus(id, status) {
-    try {
-      const quote = await QuoteRequest.findByIdAndUpdate(
-        id,
-        { status, updated_at: new Date() },
-        { new: true, runValidators: true }
-      );
-      if (!quote) return null;
-      return quote.toJSON();
-    } catch (error) {
-      console.error('Error updating quote status:', error);
-      if (error.name === 'CastError') return null;
-      if (error.name === 'ValidationError') {
-        const message = Object.values(error.errors).map(err => err.message).join(', ');
-        throw new Error(message);
-      }
-      throw error;
-    }
-  }
-
   static async updateEmailStatus(id, emailSent, emailError = null) {
     try {
       const updateData = {
@@ -94,10 +49,6 @@ class QuoteService {
       if (error.name === 'CastError') return null;
       throw error;
     }
-  }
-
-  static async markAsContacted(id) {
-    return this.updateStatus(id, 'contacted');
   }
 }
 

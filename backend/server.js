@@ -28,7 +28,7 @@ const corsOptions = {
       'http://localhost:5173',
       'https://southeastins.com',
       'https://www.southeastins.com',
-      'https://southeast-ins-web.onrender.com',
+      'https://southeast-ins-1.onrender.com',
     ];
 
     // Allow requests with no origin (like mobile apps or Postman)
@@ -41,7 +41,7 @@ const corsOptions = {
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 
@@ -85,8 +85,9 @@ app.use((req, res) => {
   });
 });
 
-// Global error handler
-app.use((err, req, res, next) => {
+// Global error handler — Express only treats 4-arg middleware as an error
+// handler, so _next must stay even though it's unused.
+app.use((err, req, res, _next) => {
   console.error('Error:', err);
 
   if (err.message === 'Not allowed by CORS') {

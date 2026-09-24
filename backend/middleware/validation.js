@@ -15,7 +15,7 @@ export const validateQuoteRequest = [
   body('phone')
     .trim()
     .notEmpty().withMessage('Phone number is required')
-    .matches(/^[\d\s\-\(\)\+]+$/).withMessage('Please provide a valid phone number'),
+    .matches(/^[\d\s\-()+]+$/).withMessage('Please provide a valid phone number'),
 
   body('address')
     .trim()
